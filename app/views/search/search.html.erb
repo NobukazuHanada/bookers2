@@ -1,0 +1,6 @@
+<h1>検索結果</h1>
+<% if @target == "user" %>
+  <%= render 'users/index', users: @result %>
+<% else %>
+  <%= render 'books/index', books: @result %>
+<% end %>
