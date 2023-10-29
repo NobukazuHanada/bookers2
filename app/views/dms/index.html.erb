@@ -1,0 +1,15 @@
+<h1><%= @other_user.name %>とのメッセージ</h1>
+<div>
+  <% @messages.each do |message| %>
+
+    <div class="dm-message">
+      <p><%= message.from.name %></p>
+      <p><%= message.body %></p>
+    </div>
+  <% end %>
+</div>
+
+<%= form_with model: @dm, url: user_dms_path(@other_user), method: :post do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>

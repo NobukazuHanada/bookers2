@@ -34,6 +34,10 @@
       <%= button_to "フォローする", user_relationships_path(user), method: :post %>
     <% end %>
   </div>
+
+  <% if user.is_mutual_follow(current_user) %>
+    <%= button_to "DMを開く", user_dms_path(user), method: :get %>
+  <% end %>
 <% end %>
 　
 <div class='row'>

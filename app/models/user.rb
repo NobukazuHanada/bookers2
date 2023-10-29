@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :followed_relationship, class_name: "Relationship", foreign_key: "follower_id"
   has_many :follower_users, through: :follower_relationship, source: :follower
   has_many :followed_users, through: :followed_relationship, source: :followed
+  has_many :dm_sends, class_name: "Dm", foreign_key: "from_id"
+  has_many :dm_receive, class_name: "Dm", foreign_key: "to_id"
 
   has_one_attached :profile_image
 
@@ -23,6 +25,10 @@ class User < ApplicationRecord
 
   def is_follow(user)
     followed_users.exists?(user.id)
+  end
+
+  def is_mutual_follow(user)
+    is_follow(user) && user.is_follow(self)
   end
 
 end
