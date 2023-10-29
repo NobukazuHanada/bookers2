@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_29_083644) do
+ActiveRecord::Schema.define(version: 2023_10_29_164529) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -100,6 +100,15 @@ ActiveRecord::Schema.define(version: 2023_10_29_083644) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "view_histories", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_view_histories_on_book_id"
+    t.index ["user_id"], name: "index_view_histories_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "book_comments", "books"
@@ -110,4 +119,6 @@ ActiveRecord::Schema.define(version: 2023_10_29_083644) do
   add_foreign_key "favorites", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
+  add_foreign_key "view_histories", "books"
+  add_foreign_key "view_histories", "users"
 end

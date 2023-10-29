@@ -24,6 +24,12 @@
           <td>
             <%= render 'favorites/favorite', book: @book %>
           </td>
+          <td>
+            閲覧数 <%= @book.view_histories.count %>
+          </td>
+          <td>
+            コメント数 <%= @book.book_comments.count %>
+          </td>
         </tr>
       </table>
 

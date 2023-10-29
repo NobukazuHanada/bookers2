@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :followed_users, through: :followed_relationship, source: :followed
   has_many :dm_sends, class_name: "Dm", foreign_key: "from_id"
   has_many :dm_receive, class_name: "Dm", foreign_key: "to_id"
+  has_many :view_histories
 
   has_one_attached :profile_image
 
