@@ -32,4 +32,43 @@ class User < ApplicationRecord
     is_follow(user) && user.is_follow(self)
   end
 
+  def today_book_posts
+    books.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+  end
+
+  def yesterday_book_posts
+    yesterday = Time.zone.now - 1.day
+    books.where(created_at: yesterday.beginning_of_day..yesterday.end_of_day)
+  end
+
+  def this_week_book_posts
+    today = Time.zone.now
+    books.where(created_at: (today - 6.day).beginning_of_day..today.end_of_day)
+  end
+
+  def last_week_book_posts
+    today = Time.zone.now
+    books.where(created_at: (today - 13.day).beginning_of_day..(today - 7.day).end_of_day)
+  end
+
+  def ratio_today_yesterday_posts
+    today_count = today_book_posts.count
+    yesterday_count = yesterday_book_posts.count
+    if yesterday_count == 0
+      "-"
+    else
+      100 * today_count / yesterday_count
+    end
+  end
+
+  def ratio_this_last_week_posts
+    this_week_book_posts_count = this_week_book_posts.count
+    last_week_book_posts_count = last_week_book_posts.count
+    if last_week_book_posts_count == 0
+      "-"
+    else
+      100 * this_week_book_posts_count / last_week_book_posts_count
+    end
+  end
+
 end

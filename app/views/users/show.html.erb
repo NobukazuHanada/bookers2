@@ -8,7 +8,69 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <%= render 'books/index',books: @books %>
+      <%= render 'books/index', books: @books %>
     </div>
   </div>
+
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          今日の投稿数
+        </th>
+        <th>
+          前日の投稿数
+        </th>
+        <th>
+          投稿数比
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= @user.today_book_posts.count %>
+        </td>
+        <td>
+          <%= @user.yesterday_book_posts.count %>
+        </td>
+        <td>
+          <%= @user.ratio_today_yesterday_posts %>%
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          今週の投稿数
+        </th>
+        <th>
+          先週の投稿数
+        </th>
+        <th>
+          投稿数比
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= @user.this_week_book_posts.count %>
+        </td>
+        <td>
+          <%= @user.last_week_book_posts.count %>
+        </td>
+        <td>
+          <%= @user.ratio_this_last_week_posts %>%
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
 </div>
