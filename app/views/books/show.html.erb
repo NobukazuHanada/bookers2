@@ -27,24 +27,9 @@
         </tr>
       </table>
 
-      <% @book.book_comments.each do |comment| %>
-        <div>
-          <%= link_to(comment.user) do %>
-            <%= image_tag comment.user.get_profile_image, size: "100x100" %>
-            <%= comment.user.name %>
-          <% end %>
-          <p>
-            <%= comment.body %>
-          </p>
-          <% if current_user.id == comment.user.id %>
-            <p>
-              <%= link_to "Destroy", book_book_comment_path(@book.id, comment.id), method: :delete %>
-            </p>
-          <% end %>
-        </div>
-      <% end %>
+      <%= render 'comment', book: @book %>
 
-      <%= form_with model: [@book, @comment] do |f| %>
+      <%= form_with model: [@book, @comment], local: false do |f| %>
         <%= f.text_area :body, rows: '5' %>
         <%= f.submit %>
       <% end %>
