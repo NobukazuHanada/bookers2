@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Create Event</h1>
+  <%= form_with url: group_event_path(@group), method: :post do |f| %>
+    <%= f.label :title, "タイトル", class: "form-label" %>
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.label :body, "本文", class: "form-label" %>
+    <%= f.text_area :body, class: "form-control" %>
+    <%= f.submit "送信", class: "btn btn-primary mb-3" %>
+  <% end %>
+</div>

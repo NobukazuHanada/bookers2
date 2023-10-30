@@ -29,7 +29,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     unless @group.owner.user_id == current_user.id
-      redirect_to group_path(@group)
+      redirect_to group_path(@group.id)
     end
     if @group.update(group_params)
       redirect_to group_path(@group.id)
@@ -52,6 +52,23 @@ class GroupsController < ApplicationController
       @group.users.destroy(current_user)
     end
     redirect_to request.referer
+  end
+
+  def event_create
+    @group = Group.find(params[:id])
+  end
+
+  def event_notice
+    @group = Group.find(params[:id])
+    @title = params[:title]
+    @body = params[:body]
+    unless @group.owner.user_id == current_user.id
+      redirect_to group_path(@group.id)
+    end
+    @group.users.each do |user|
+      UserMailer.with(user: user, title: @title, body: @body).event_email.deliver_later
+      
+    end
   end
 
   private
