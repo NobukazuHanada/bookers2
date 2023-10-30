@@ -1,0 +1,5 @@
+<div class="container">
+  <h1>Groups#edit</h1>
+  <p>Find me in app/views/groups/edit.html.erb</p>
+  <%= render partial: 'form', locals: { group: @group, url: group_path(@group), form_method: :patch, submit_button_text: "Update Group" } %>
+</div>

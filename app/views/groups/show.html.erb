@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Group詳細</h1>
+  <% if @group.owner.user_id == current_user.id %>
+    <%= button_to "Edit", edit_group_path(@group), method: :get %>
+  <% end %>
+  <dl>
+    <dt>グループ名</dt>
+    <dd><%= @group.name %></dd>
+    <dt>紹介文</dt>
+    <dd><%= @group.name %></dd>
+    <dt>画像</dt>
+    <dd><%= image_tag @group.get_image %></dd>
+  </dl>
+
+</div>
