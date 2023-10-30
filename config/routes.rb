@@ -23,6 +23,6 @@ Rails.application.routes.draw do
   delete "groups/:id/join" => "groups#leave"
   post "group/:id/event/new" => "groups#event_create", as: :new_group_event
   post "groups/:id/event" => "groups#event_notice", as: :group_event
-
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

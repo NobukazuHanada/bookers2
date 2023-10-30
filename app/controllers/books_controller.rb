@@ -11,16 +11,21 @@ class BooksController < ApplicationController
 
   def index
     order = params[:order]
-    subquery = Favorite.where("created_at > ?", 1.week.ago)
+    category = params[:category]
     if order == "new"
       @books = Book.order(created_at: "DESC")
     elsif order == "rating"
       @books = Book.order(rating: "DESC")
     else
-      @books = Book
-                 .joins("LEFT OUTER JOIN (#{subquery.to_sql}) AS favorites ON favorites.book_id = books.id")
-                 .group(:id)
-                 .order("COUNT(favorites.id) DESC")
+      if category.nil? || category == ""
+        subquery = Favorite.where("created_at > ?", 1.week.ago)
+        @books = Book
+                   .joins("LEFT OUTER JOIN (#{subquery.to_sql}) AS favorites ON favorites.book_id = books.id")
+                   .group(:id)
+                   .order("COUNT(favorites.id) DESC")
+      else
+        @books = Book.where(category: category)
+      end
     end
     @book = Book.new
   end
@@ -61,10 +66,10 @@ class BooksController < ApplicationController
   private
 
   def new_book_params
-    params.require(:book).permit(:title, :body, :rating)
+    params.require(:book).permit(:title, :body, :rating, :category)
   end
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :category)
   end
 end
