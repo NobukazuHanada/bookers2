@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy, :show]
     get "follower" => "users#follower", as: :follower
     get "followed" => "users#followed", as: :followed
+    post "search_books" => "users#search_books", as: :search_books
     resources :dms, only: [:index, :create]
   end
 

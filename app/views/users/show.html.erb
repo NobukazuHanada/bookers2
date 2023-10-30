@@ -109,4 +109,12 @@
     </script>
   </div>
 
+  <div>
+    <%= form_with url: user_search_books_path(@user), local: false do |f| %>
+      <%= f.date_field :date %>
+      <%= f.submit "検索" %>
+    <% end %>
+    <div id="search-books-result"></div>
+  </div>
+
 </div>

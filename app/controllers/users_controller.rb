@@ -37,6 +37,12 @@ class UsersController < ApplicationController
     @followed = @user.followed_users
   end
 
+  def search_books
+    @user = User.find(params[:user_id])
+    date = Time.zone.parse(params[:date])
+    @books = @user.books.where(created_at: date.beginning_of_day..date.end_of_day)
+  end
+
   private
 
   def user_params
