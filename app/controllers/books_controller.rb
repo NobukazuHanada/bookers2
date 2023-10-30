@@ -10,11 +10,18 @@ class BooksController < ApplicationController
   end
 
   def index
+    order = params[:order]
     subquery = Favorite.where("created_at > ?", 1.week.ago)
-    @books = Book
-               .joins("LEFT OUTER JOIN (#{subquery.to_sql}) AS favorites ON favorites.book_id = books.id")
-               .group(:id)
-               .order("COUNT(favorites.id) DESC")
+    if order == "new"
+      @books = Book.order(created_at: "DESC")
+    elsif order == "rating"
+      @books = Book.order(rating: "DESC")
+    else
+      @books = Book
+                 .joins("LEFT OUTER JOIN (#{subquery.to_sql}) AS favorites ON favorites.book_id = books.id")
+                 .group(:id)
+                 .order("COUNT(favorites.id) DESC")
+    end
     @book = Book.new
   end
 
