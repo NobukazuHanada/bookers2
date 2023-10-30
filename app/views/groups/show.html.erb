@@ -2,6 +2,12 @@
   <h1>Group詳細</h1>
   <% if @group.owner.user_id == current_user.id %>
     <%= button_to "Edit", edit_group_path(@group), method: :get %>
+  <% else %>
+    <% if !@group.is_join(current_user) %>
+      <%= button_to "Join Group", group_join_path(@group), method: :post %>
+    <% else %>
+      <%= button_to "Leave This Group", group_join_path(@group), method: :delete %>
+    <% end %>
   <% end %>
   <dl>
     <dt>グループ名</dt>
@@ -11,5 +17,31 @@
     <dt>画像</dt>
     <dd><%= image_tag @group.get_image %></dd>
   </dl>
+
+  <h2>メンバー</h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>名前</th>
+      <th>プロフィール画像</th>
+      <th>ロール</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @group.users.each do |user| %>
+      <tr>
+        <th><%= link_to user.name, user_path(user) %></th>
+        <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+        <td>
+          <% if @group.owner.user_id == user.id %> オーナー
+          <% else %> メンバー　
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
 </div>

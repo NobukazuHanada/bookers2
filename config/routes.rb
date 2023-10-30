@@ -18,9 +18,9 @@ Rails.application.routes.draw do
     resources :dms, only: [:index, :create]
   end
 
-  resources :groups, only: [:new, :index, :show, :edit, :create, :update] do
-    resources :users, only: [:create, :destroy]
-  end
+  resources :groups, only: [:new, :index, :show, :edit, :create, :update]
+  post "groups/:id/join" => "groups#join", as: :group_join
+  delete "groups/:id/join" => "groups#leave"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

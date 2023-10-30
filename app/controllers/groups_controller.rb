@@ -38,6 +38,22 @@ class GroupsController < ApplicationController
     end
   end
 
+  def join
+    @group = Group.find(params[:id])
+    if @group.owner.user_id != current_user.id && !@group.users.exists?(id: current_user.id)
+      @group.users.push(current_user)
+    end
+    redirect_to request.referer
+  end
+
+  def leave
+    @group = Group.find(params[:id])
+    if @group.owner.user_id != current_user.id && @group.users.exists?(id: current_user.id)
+      @group.users.destroy(current_user)
+    end
+    redirect_to request.referer
+  end
+
   private
 
   def group_params
