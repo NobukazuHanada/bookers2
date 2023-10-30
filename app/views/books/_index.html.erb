@@ -25,7 +25,27 @@
       <td>
         コメント数 <%= book.book_comments.count %>
       </td>
+      <td>
+        <div class="post-raty" data-rating="<%= book.rating %>"></div>
+      </td>
     </tr>
   <% end %>
   </tbody>
 </table>
+<script>
+    {
+        let elems = document.getElementsByClassName('post-raty');
+        let opt = {
+            starHalf: "/assets/star-half.png",
+            starOff: "/assets/star-off.png",
+            starOn: "/assets/star-on.png",
+            readOnly: true
+        };
+        for (let elem of elems) {
+            raty(elem, {
+                ...opt,
+                score: Number(elem.getAttribute("data-rating"))
+            });
+        }
+    }
+</script>

@@ -15,7 +15,14 @@ import "../stylesheets/application"
 import "./favorite";
 import "./comment"
 import "./posts_chart"
+import Raty from "./raty.js"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.raty = function (elem, opt) {
+    let raty = new Raty(elem, opt)
+    raty.init();
+    return raty;
+}

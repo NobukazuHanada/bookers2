@@ -4,7 +4,7 @@
       <h2>User info</h2>
       <%= render 'users/info', user: @book.user %>
       <h2 class="mt-3">New book</h2>
-      <%= render 'form', book: @new_book %>
+      <%= render partial: 'form', locals: { book: @new_book, update: false } %>
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Book detail</h2>
@@ -30,6 +30,9 @@
           <td>
             コメント数 <%= @book.book_comments.count %>
           </td>
+          <td>
+            <div class="post-rating-show" data-rating="<%= @book.rating %>"></div>
+          </td>
         </tr>
       </table>
 
@@ -42,3 +45,21 @@
     </div>
   </div>
 </div>
+
+<script>
+    {
+        let elems = document.getElementsByClassName('post-rating-show');
+        let opt = {
+            starHalf: "/assets/star-half.png",
+            starOff: "/assets/star-off.png",
+            starOn: "/assets/star-on.png",
+            readOnly: true
+        };
+        for (let elem of elems) {
+            raty(elem, {
+                ...opt,
+                score: Number(elem.getAttribute("data-rating"))
+            });
+        }
+    }
+</script>
