@@ -73,4 +73,40 @@
 
   </div>
 
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <% (0..6).each do |i| %>
+          <th>
+            <% if i == 0 %>
+              本日
+            <% elsif i == 1 %>
+              前日
+            <% else %>
+              <%= i %>日前
+            <% end %>
+          </th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <% @user.per_day_posts_in_this_week.each do |posts| %>
+          <td>
+            <%= posts.length %>
+          </td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <canvas id="post-chart"></canvas>
+    <script>
+        setDataToPostChart(<%= (@user.per_day_posts_in_this_week.map {|post| post.length }).to_s %>);
+    </script>
+  </div>
+
 </div>

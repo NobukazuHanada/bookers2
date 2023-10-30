@@ -71,4 +71,14 @@ class User < ApplicationRecord
     end
   end
 
+  def per_day_posts_in_this_week
+    posts = this_week_book_posts
+    per_day_posts = [[], [], [], [], [], [], []]
+    today = Time.zone.now
+    posts.each do |post|
+      d = Time.zone.at(today - post.created_at).day - 1
+      per_day_posts[d].push(post)
+    end
+    per_day_posts
+  end
 end

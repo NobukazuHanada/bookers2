@@ -14,6 +14,7 @@ import "bootstrap"
 import "../stylesheets/application"
 import "./favorite";
 import "./comment"
+import "./posts_chart"
 
 Rails.start()
 Turbolinks.start()
