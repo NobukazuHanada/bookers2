@@ -1,48 +1,53 @@
 <div class="container">
-  <h1>Group詳細</h1>
-  <% if @group.owner.user_id == current_user.id %>
-    <%= button_to "Edit", edit_group_path(@group), method: :get %>
-    <%= button_to "Notice an Event", new_group_event_path(@group), method: :post %>
-  <% else %>
-    <% if !@group.is_join(current_user) %>
-      <%= button_to "Join Group", group_join_path(@group), method: :post %>
+  <div class="row">
+    <h1>Group詳細</h1>
+    <% if @group.owner.user_id == current_user.id %>
+      <div class="col-md-1 p-0 m-1">
+        <%= button_to "Edit", edit_group_path(@group), method: :get, class: "btn btn-success" %>
+      </div>
+      <div class="col-md-1 p-0 m-1">
+        <%= button_to "Notice an Event", new_group_event_path(@group), method: :post, class: "btn btn-primary" %>
+      </div>
     <% else %>
-      <%= button_to "Leave This Group", group_join_path(@group), method: :delete %>
+      <% if !@group.is_join(current_user) %>
+        <%= button_to "Join Group", group_join_path(@group), method: :post %>
+      <% else %>
+        <%= button_to "Leave This Group", group_join_path(@group), method: :delete %>
+      <% end %>
     <% end %>
-  <% end %>
-  <dl>
-    <dt>グループ名</dt>
-    <dd><%= @group.name %></dd>
-    <dt>紹介文</dt>
-    <dd><%= @group.name %></dd>
-    <dt>画像</dt>
-    <dd><%= image_tag @group.get_image %></dd>
-  </dl>
+    <dl>
+      <dt>グループ名</dt>
+      <dd><%= @group.name %></dd>
+      <dt>紹介文</dt>
+      <dd><%= @group.name %></dd>
+      <dt>画像</dt>
+      <dd><%= image_tag @group.get_image %></dd>
+    </dl>
 
-  <h2>メンバー</h2>
+    <h2>メンバー</h2>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th>名前</th>
-      <th>プロフィール画像</th>
-      <th>ロール</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @group.users.each do |user| %>
+    <table class="table">
+      <thead>
       <tr>
-        <th><%= link_to user.name, user_path(user) %></th>
-        <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
-        <td>
-          <% if @group.owner.user_id == user.id %> オーナー
-          <% else %> メンバー　
-          <% end %>
-        </td>
-
+        <th>名前</th>
+        <th>プロフィール画像</th>
+        <th>ロール</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <% @group.users.each do |user| %>
+        <tr>
+          <th><%= link_to user.name, user_path(user) %></th>
+          <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+          <td>
+            <% if @group.owner.user_id == user.id %> オーナー
+            <% else %> メンバー　
+            <% end %>
+          </td>
 
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,9 +1,20 @@
+<div>
+  <%= render 'layouts/errors', obj: @group %>
+</div>
 <%= form_with model: group, url: url, :method => form_method do |f| %>
-  <%= f.label :name, "グループ名", class: "form-label" %>
-  <%= f.text_field :name, class: "form-control" %>
-  <%= f.label :introduction, "グループの紹介", class: "form-label" %>
-  <%= f.text_area :introduction, class: "form-control" %>
-  <%= f.label :image, "グループイメージ", class: "form-label" %>
-  <%= f.file_field :image, class: "form-control" %>
-  <%= f.submit submit_button_text, class: "btn btn-primary mb-3" %>
+  <div class="form-group mb-2">
+    <%= f.label :name, "グループ名", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group  mb-2">
+    <%= f.label :introduction, "グループの紹介", class: "form-label" %>
+    <%= f.text_area :introduction, class: "form-control" %>
+  </div>
+  <div class="form-group  mb-2">
+    <%= f.label :image, "グループイメージ", class: "form-label" %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit submit_button_text, class: "btn btn-primary mb-3" %>
+  </div>
 <% end %>
