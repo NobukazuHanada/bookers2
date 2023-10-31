@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
       redirect_to group_path(group)
     else
       @group = group
-      render 'users/index'
+      render :new
     end
   end
 
@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
     end
     @group.users.each do |user|
       UserMailer.with(user: user, title: @title, body: @body).event_email.deliver_later
-      
+
     end
   end
 
