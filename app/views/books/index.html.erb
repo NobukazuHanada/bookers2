@@ -8,13 +8,21 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <%= form_with url: books_path, method: :get do |f| %>
-        <%= f.label :category, "タグ検索" %>
-        <%= f.text_field :category, class: "form-control" %>
-        <%= f.submit "検索" %>
+        <div class="row">
+          <%= f.label :category, "タグ検索" %>
+          <div class="col">
+            <%= f.text_field :category, class: "form-control" %>
+          </div>
+          <div class="col">
+            <%= f.submit "検索", class: "btn btn-primary" %>
+          </div>
+        </div>
       <% end %>
-      <%= link_to "新しい順に並び替え", books_path(order: "new") %>
-      <%= link_to "評価順に並び替え", books_path(order: "rating") %>
-      <h2>Books</h2>
+      <h2 class="m-1">Books</h2>
+      <div class="m-1">
+        <%= link_to "新しい順に並び替え", books_path(order: "new"), class: "pe-2 border-end border-1 border-dark" %>
+        <%= link_to "評価順に並び替え", books_path(order: "rating") %>
+      </div>
       <%= render 'index', books: @books %>
     </div>
   </div>
