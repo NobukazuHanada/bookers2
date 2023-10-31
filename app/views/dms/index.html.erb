@@ -1,15 +1,23 @@
-<h1><%= @other_user.name %>とのメッセージ</h1>
-<div>
-  <% @messages.each do |message| %>
+<div class="container">
 
-    <div class="dm-message">
-      <p><%= message.from.name %></p>
-      <p><%= message.body %></p>
-    </div>
+  <h1><%= @other_user.name %>とのメッセージ</h1>
+  <div>
+    <% @messages.each do |message| %>
+      <div class="row m-1">
+        <div class="dm-message card col-4
+          <% if message.from.id == current_user.id %> offset-8
+          <% end %> ">
+          <div class="card-body">
+            <p class="card-title"><%= message.from.name %></p>
+            <p><%= message.body %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form_with model: @dm, url: user_dms_path(@other_user), method: :post do |f| %>
+    <%= f.text_area :body, class: "form-control" %>
+    <%= f.submit "送信", class: "btn btn-success" %>
   <% end %>
 </div>
-
-<%= form_with model: @dm, url: user_dms_path(@other_user), method: :post do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-<% end %>
